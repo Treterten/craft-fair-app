@@ -1,0 +1,22 @@
+
+<mat-card>
+  <mat-form-field>
+      <mat-label> Booth Number </mat-label>
+      <mat-select [formControl]="boothControl" required>
+          <mat-option *ngFor="let booth of booths" [value]="booth">
+            {{ booth.number }}
+          </mat-option>
+      </mat-select>
+      <mat-hint> Filter with your keyboard</mat-hint>
+  </mat-form-field>
+  <p> Available: {{ boothControl.value?.isOpen }} </p>
+  <p> Vendor: {{ boothControl.value?.vendor }} </p>
+  <p> Business: {{ boothControl.value?.business }} </p>
+  <p> Size: {{ boothControl.value?.size }} </p>
+  <p> Outlets: {{ boothControl.value?.outlets }} </p>
+  <p> Tables: {{ boothControl.value?.tables }} </p>
+</mat-card>
+
+<mat-card>
+
+</mat-card>
