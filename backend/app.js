@@ -16,11 +16,11 @@ const Booth = require('./models/booth');
 
 
 /* const booth = new Booth({
-  number: 457,
-  isOpen: false,
-  vendor: 'Jamey',
-  business: 'Microsoft',
-  size: '5 x 5',
+  number: 466,
+  isOpen: true,
+  vendor: 'none',
+  business: 'none',
+  size: '<h1>trying to hack</h1>',
   outlets: 4,
   tables: 2
 });

@@ -51,7 +51,7 @@ const onListening = () => {
 const port = normalizePort(process.env.PORT || "443");
 app.set("port", port);
 
-  const server = https.createServer({
+const server = https.createServer({
   key: fs.readFileSync('./localhost.key'),
   cert: fs.readFileSync('./localhost.crt')
 }, app);
