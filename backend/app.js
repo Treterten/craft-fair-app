@@ -15,19 +15,6 @@ const Password = require('./models/password');
 const Booth = require('./models/booth');
 
 
-/* const booth = new Booth({
-  number: 466,
-  isOpen: true,
-  vendor: 'none',
-  business: 'none',
-  size: '<h1>trying to hack</h1>',
-  outlets: 4,
-  tables: 2
-});
-booth.save().then(createdBooth => {
-  console.log(createdBooth);
-}); */
-
 const app = express();
 
 /* This block of code will fix all depreciation issues with the current versions of mongoose and mongodb */
@@ -57,48 +44,44 @@ app.use((req, res, next) => {
   next();
 });
 
-
-async function rehashPassword(password) {
-  bcrypt.hash(password, 10, function(err, hash) {
-    const password = new Password({
-      password: hash
-    });
-    password.replaceOne({ _id: '5e3da253429a039f33b5076c' }).then(() => {
-      console.log("saved successfully");
-    });
+//depreciated function, pay no mind to this
+/* function rehashPassword(username, password) {
+  let hashedUsername = bcrypt.hashSync(username, 10);
+  let hashedPassword = bcrypt.hashSync(password, 10);
+  const savedPassword = new Password({
+    username: hashedUsername,
+    password: hashedPassword
   });
-}
-
+  savedPassword.save().then(() => {
+    console.log("saved successfully");
+  });
+} */
 
 /* This middleware compares the password entered by the user to the one in the database.
 if the passwords match, it returns true (essentially anyway) and if they don't match it returns false */
 app.post("/api/login", async (req, res, next) => {
-  const hashedPasswordId = '5e3da253429a039f33b5076c'; //maybe remove this functionality here, might not be good for security
   const password = req.body.password;
+  const username = req.body.username;
 
-  //returns an object with a field of the hashed password
-  const hashedPassword = await Password.findOne({ _id: hashedPasswordId }).exec();
-  console.log(password);
+  //find the correct username and password from the database
+  const user = await Password.find().exec();
 
-  //resolves true or false depending on if the passwords match or not
-  bcrypt.compare(password, hashedPassword.password).then(match => {
-    if(match) {
-      //rehashPassword(password);
-      res.status(200).json({
-        message: 'Login Successsful'
-      });
-    } else {
-      res.status(422).json({
-        message: 'Invalid Password'
-      });
-    }
-  })
-  .catch(err => {
-    console.log(err);
-    res.status(500).json({
-      message: 'An error occurred processing the password'
+  //true if both the username and password are correct
+  const match = await bcrypt.compare(username, user[0].username) && await bcrypt.compare(password, user[0].password);
+
+  //if they're both correct, send a success response, else send a failure response
+  if(match) {
+    //rehashPassword(password);
+    res.status(200).json({
+      message: 'Login Successsful'
     });
-  });
+  } else {
+    res.status(422).json({
+      message: 'Invalid Password'
+    });
+  }
+  //poopys
+  console.log(password);
 });
 
 /* This middleware is fetching all customers from the database */
@@ -142,6 +125,5 @@ customer.save().then(createdCustomer => {
     postId: createdCustomer._id
   });
 }); */
-
 
 module.exports = app;

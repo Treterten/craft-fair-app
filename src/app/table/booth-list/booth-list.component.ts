@@ -28,16 +28,7 @@ export class BoothListComponent implements OnInit {
       });
   }
 
-  isBoothOpen() {
-    if(this.boothControl == undefined) {
-      return '';
-    }
-    const open = this.boothControl.value.isOpen ? "open" : "closed";
-    return open;
-  }
-
-  /* This method will filter out the booths based
-  on if they're available or not */
+  /* this method filters the booths based on if they're available or not */
   sortBooths() {
     if(this.filterControl.value === undefined) {
       this.booths = this.boothsCopy;

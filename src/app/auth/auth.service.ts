@@ -13,8 +13,8 @@ export class AuthService {
 
   redirectUrl: string; // <- this is probably not needed in our app
 
-  login(password: string) {
-      this.http.post<{message: string}>('https://localhost:443/api/login', { password })
+  login(username: string, password: string) {
+      this.http.post<{message: string}>('https://localhost:443/api/login', { username, password })
         .subscribe((responseData) => {
           this.isLoggedIn = true;
           this.loggedInUpdated.next(true);

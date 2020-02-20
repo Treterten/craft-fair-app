@@ -13,6 +13,7 @@ import { Subscription } from 'rxjs';
 
 export class LoginComponent {
   private password: string = '';
+  private username: string = '';
   private loginUpdateListener: Subscription;
   // private pw: string = 'Heck';
 
@@ -23,7 +24,7 @@ export class LoginComponent {
 
   onLogin() {
     console.log("Logging in");
-    this.authService.login(this.password);
+    this.authService.login(this.username, this.password);
     this.loginUpdateListener = this.authService.getLoginUpdateListener()
       .subscribe((loggedIn) => {
         if(loggedIn) {
