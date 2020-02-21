@@ -89,12 +89,27 @@ app.get("/api/customer-list", (req, res, next) => {
   Customer.find()
     .then(documents => {
       console.log(documents);
+      const customersSorted = documents.sort(compareNames);
       res.status(200).json({
         message: 'Customers fetched successfully',
         customers: documents
         });
     });
 });
+
+//Helper function that sorts arrays, see use case directly above
+function compareNames(a, b) {
+  const aName = a.name.toUpperCase();
+  const bName = b.name.toUpperCase();
+
+  let comparison = 0;
+  if(aName > bName) {
+    comparison = 1;
+  } else if(aName < bName) {
+    comparison = -1;
+  }
+  return comparison;
+}
 
 
 //this is gonna post new customers to the database
