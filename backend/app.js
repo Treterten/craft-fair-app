@@ -71,7 +71,6 @@ app.post("/api/login", async (req, res, next) => {
 
   //if they're both correct, send a success response, else send a failure response
   if(match) {
-    //rehashPassword(password);
     res.status(200).json({
       message: 'Login Successsful'
     });
@@ -97,7 +96,7 @@ app.get("/api/customer-list", async (req, res, next) => {
     });
 });
 
-//Helper function that sorts arrays, see use case directly above
+//Helper function that sorts customers by alphabetical order
 function compareNames(a, b) {
   const aName = a.name.toUpperCase();
   const bName = b.name.toUpperCase();
