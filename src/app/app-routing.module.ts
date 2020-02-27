@@ -11,8 +11,8 @@ import { BoothListComponent } from './table/booth-list/booth-list.component';
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
-  { path: 'customer-list', component: CustomerTableComponent, canActivate: [AuthGuard] },
-  { path: 'booths', component: BoothListComponent, canActivate: [AuthGuard] },
+  { path: 'customer-list', component: CustomerTableComponent, canActivate: [AuthGuard], canLoad: [AuthGuard] },
+  { path: 'booths', component: BoothListComponent, canActivate: [AuthGuard], canLoad: [AuthGuard] },
   { path: '',
     redirectTo: '/login',
     pathMatch: 'full'

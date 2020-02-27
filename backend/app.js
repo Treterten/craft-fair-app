@@ -85,14 +85,14 @@ app.post("/api/login", async (req, res, next) => {
 });
 
 /* This middleware is fetching all customers from the database */
-app.get("/api/customer-list", (req, res, next) => {
+app.get("/api/customer-list", async (req, res, next) => {
   Customer.find()
-    .then(documents => {
-      console.log(documents);
-      const customersSorted = documents.sort(compareNames);
+    .then(customers => {
+      console.log(customers);
+      const customersSorted = customers.sort(compareNames); //sorting the customers by name alphabetically
       res.status(200).json({
         message: 'Customers fetched successfully',
-        customers: documents
+        customers: customersSorted
         });
     });
 });
@@ -113,7 +113,7 @@ function compareNames(a, b) {
 
 
 //this is gonna post new customers to the database
-app.post("/api/customer-list", (req, res, next) => {
+app.post("/api/customer-list", async (req, res, next) => {
 
 });
 
