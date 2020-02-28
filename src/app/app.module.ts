@@ -13,7 +13,8 @@ import {
   MatExpansionModule,
   MatIconModule,
   MatSelectModule,
-  MatMenuModule
+  MatMenuModule,
+  MatGridListModule
 } from '@angular/material';
 import {MatTableModule} from '@angular/material/table';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -53,7 +54,8 @@ import { NavbarComponent } from './navbar/navbar.component';
     MatSelectModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    MatMenuModule
+    MatMenuModule,
+    MatGridListModule
   ],
   providers: [],
   bootstrap: [AppComponent]

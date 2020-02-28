@@ -15,6 +15,7 @@ export class BoothListComponent implements OnInit {
   boothsCopy: Booth[] = [];
   boothControl = new FormControl('', Validators.required);
   filterControl = new FormControl('');
+  selectedBooth: Booth;
 
 
   constructor(private tableService: TableService) { }
@@ -35,6 +36,18 @@ export class BoothListComponent implements OnInit {
       return;
     }
     this.booths = this.boothsCopy.filter(booth => booth.isOpen === this.filterControl.value);
+  }
+
+  getColor(booth: Booth): string {
+    if(booth.isOpen) {
+      return 'green';
+    }
+    return 'red';
+  }
+
+  setBooth(booth: Booth) {
+    this.selectedBooth = booth;
+    console.log(booth);
   }
 
   ngOnDestroy() {

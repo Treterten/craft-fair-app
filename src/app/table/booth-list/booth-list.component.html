@@ -24,14 +24,17 @@
       </mat-select>
   </mat-form-field>
   <button mat-stroked-button color="secondary" (click)="sortBooths()">Sort</button>
-  <p> Available: {{ boothControl.value?.isOpen }} </p>
-  <p> Vendor: {{ boothControl.value?.vendor }} </p>
-  <p> Business: {{ boothControl.value?.business }} </p>
-  <p> Size: {{ boothControl.value?.size }} </p>
-  <p> Outlets: {{ boothControl.value?.outlets }} </p>
-  <p> Tables: {{ boothControl.value?.tables }} </p>
+  <p> Available: {{ selectedBooth?.isOpen }} </p>
+  <p> Vendor: {{ selectedBooth?.vendor }} </p>
+  <p> Business: {{ selectedBooth?.business }} </p>
+  <p> Size: {{ selectedBooth?.size }} </p>
+  <p> Outlets: {{ selectedBooth?.outlets }} </p>
+  <p> Tables: {{ selectedBooth?.tables }} </p>
 </mat-card>
 
-<mat-card>
 
-</mat-card>
+<mat-grid-list cols="4" rowHeight="100px">
+  <mat-grid-tile *ngFor="let booth of booths" [style.background]="getColor(booth)" (click)="setBooth(booth)">
+    {{booth.number}}
+  </mat-grid-tile>
+</mat-grid-list>
