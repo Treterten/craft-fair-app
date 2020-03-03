@@ -10,6 +10,40 @@
     <td mat-cell *matCellDef="let customer"> {{customer.address}} </td>
   </ng-container>
 
+  <ng-container matColumnDef="delete">
+    <th mat-header-cell *matHeaderCellDef> Delete </th>
+    <td mat-cell *matCellDef="let customer"> <button mat-stroked-button (click)="onDeleteCustomer(customer.id)">Delete</button> </td>
+  </ng-container>
+
+  <ng-container matColumnDef="edit">
+    <th mat-header-cell *matHeaderCellDef> Edit </th>
+    <td mat-cell *matCellDef="let customer"> <button mat-stroked-button (click)="beginEditCustomer(customer)">Edit</button> </td>
+  </ng-container>
+
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
+
+<mat-card>
+  <mat-form-field>
+    <mat-label>Name</mat-label>
+    <input matInput placeholder="name" [(ngModel)]="name">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Address</mat-label>
+    <input matInput placeholder="address" [(ngModel)]="address">
+  </mat-form-field>
+  <button mat-stroked-button (click)="onSubmit()">Submit</button>
+</mat-card>
+
+<mat-card>
+  <mat-form-field>
+    <mat-label>Name</mat-label>
+    <input matInput placeholder="name" [(ngModel)]="changedCustomer.name">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Address</mat-label>
+    <input matInput placeholder="address" [(ngModel)]="changedCustomer.address">
+  </mat-form-field>
+  <button mat-stroked-button (click)="onEditCustomer()">Save Changes</button>
+</mat-card>

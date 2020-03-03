@@ -113,11 +113,66 @@ function compareNames(a, b) {
 
 //this is gonna post new customers to the database
 app.post("/api/customer-list", async (req, res, next) => {
+    const customer = new Customer({
+      name: req.body.name,
+      address: req.body.address
+    });
 
+    //save the new customer to the database
+    customer.save().then(createdCustomer => {
+      console.log(createdCustomer);
+      //send a success message with the id attatched
+      res.status(201).json({
+        id: createdCustomer.id,
+        message: 'Customer added successfully'
+      });
+    })
+    .catch(err => {
+      console.error(err);
+      //send a failure message
+      res.status(500).json({
+        message: 'failed to add customer'
+      });
+    });
+});
+
+/* This middleware finds and deletes a customer by their id */
+app.delete("/api/customer-list/:id", async (req, res, next) => {
+  Customer.deleteOne({_id: req.params.id }).then(result => {
+    console.log(result);
+    //send a success message
+    res.status(200).json({
+      message: 'Customer deleted'
+    });
+  });
+});
+
+
+/* this middleware will find a customer by their ID and update the content
+  of them in the database */
+app.post("/api/customer-list/:id", async (req, res, next) => {
+  console.log(req.body.customer);
+  //construct a proper mongodb object
+  const customer = {
+    _id: req.params.id,
+    name: req.body.customer.name,
+    address: req.body.customer.address
+  };
+  //find and update the customer
+  Customer.findByIdAndUpdate(req.params.id, customer)
+    .then(result => {
+      //send a success message
+      res.status(201).json({ message: 'Post updated' });
+    })
+    .catch(error => {
+      console.error(error);
+      //send a failure message
+      res.status(500).json({ message: 'There was a problem processing the request' });
+    });
 });
 
 /* This middleware is going to get all the booths from the database */
-app.get("/api/booths", (req, res, next) => {
+app.get("/api/booths", async (req, res, next) => {
   Booth.find()
     .then(booths => {
       console.log(booths);
@@ -127,17 +182,5 @@ app.get("/api/booths", (req, res, next) => {
       });
     });
 });
-
-/*
-const customer = new Customer({
-  name: req.body.name,
-  address: req.body.address
-});
-customer.save().then(createdCustomer => {
-  res.status(201).json({
-    message: 'Success',
-    postId: createdCustomer._id
-  });
-}); */
 
 module.exports = app;

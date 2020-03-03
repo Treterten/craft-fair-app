@@ -55,6 +55,41 @@ export class TableService {
       })
   }
 
+  addCustomer(customer: Customer) {
+    this.http.post<{message: string, id: string}>('https://localhost:443/api/customer-list', customer)
+      .subscribe(responseData => {
+        customer.id = responseData.id;
+        this.customers.push(customer);
+        this.customersUpdated.next([...this.customers]);
+      });
+
+  }
+
+  deleteCustomer(id: string) {
+    this.http.delete('https://localhost:443/api/customer-list/' + id)
+      .subscribe(successMessage => {
+        this.customers = this.customers.filter(customer => customer.id !== id); //filter out the deleted message
+        this.customersUpdated.next([...this.customers]); //push the new collection of customers to the front end
+      });
+  }
+
+  editCustomer(customer: Customer) {
+    customer.name = customer.name.trim();
+    customer.address = customer.address.trim();
+    if(customer.name === '' || customer.address === '') {
+      return;
+    }
+
+    console.log(customer);
+    this.http.post('https://localhost:443/api/customer-list/' + customer.id, { customer })
+      .subscribe(result => {
+        console.log(result);
+        const index = this.customers.findIndex(element => element.id === customer.id);
+        this.customers[index] = customer;
+        this.customersUpdated.next([...this.customers]);
+      });
+  }
+
   getCustomerUpdateListener() {
     return this.customersUpdated.asObservable();
   }

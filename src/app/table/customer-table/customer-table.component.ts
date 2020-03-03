@@ -11,7 +11,16 @@ import { Subscription } from 'rxjs';
 export class CustomerTableComponent implements OnInit {
   private customerSub: Subscription;
   customers: Customer[]= [];
-  displayedColumns: string[] = ['name', 'address'];
+  displayedColumns: string[] = ['name', 'address', 'delete', 'edit'];
+
+  name: string;
+  address: string;
+
+  changedCustomer: Customer = {
+    name: '',
+    address: '',
+    id: ''
+  };
 
   constructor(private tableService: TableService) { }
 
@@ -21,6 +30,32 @@ export class CustomerTableComponent implements OnInit {
       .subscribe((customerList: Customer[]) => {
         this.customers = customerList;
       });
+  }
+
+  onSubmit() {
+    if(this.name == undefined || this.address == undefined) {
+      return;
+    }
+    let customer: Customer = {
+      id: null,
+      name: this.name,
+      address: this.address
+    };
+    this.tableService.addCustomer(customer);
+  }
+
+  onDeleteCustomer(id: string) {
+    this.tableService.deleteCustomer(id);
+  }
+
+  beginEditCustomer(customer: Customer) {
+    this.changedCustomer = Object.assign({}, customer);
+  }
+
+  onEditCustomer() {
+    console.log("I'm in onEditCustomer");
+
+    this.tableService.editCustomer(this.changedCustomer);
   }
 
   ngOnDestroy() {
