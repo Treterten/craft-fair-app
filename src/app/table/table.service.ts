@@ -81,7 +81,8 @@ export class TableService {
     }
 
     console.log(customer);
-    this.http.post('https://localhost:443/api/customer-list/' + customer.id, { customer })
+    //send the update request to the database
+    this.http.patch('https://localhost:443/api/customer-list/' + customer.id, { customer })
       .subscribe(result => {
         console.log(result);
         const index = this.customers.findIndex(element => element.id === customer.id);

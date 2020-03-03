@@ -150,7 +150,7 @@ app.delete("/api/customer-list/:id", async (req, res, next) => {
 
 /* this middleware will find a customer by their ID and update the content
   of them in the database */
-app.post("/api/customer-list/:id", async (req, res, next) => {
+app.patch("/api/customer-list/:id", async (req, res, next) => {
   console.log(req.body.customer);
   //construct a proper mongodb object
   const customer = {
@@ -162,7 +162,7 @@ app.post("/api/customer-list/:id", async (req, res, next) => {
   Customer.findByIdAndUpdate(req.params.id, customer)
     .then(result => {
       //send a success message
-      res.status(201).json({ message: 'Post updated' });
+      res.status(200).json({ message: 'Post updated' });
     })
     .catch(error => {
       console.error(error);
