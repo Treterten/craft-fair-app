@@ -1,4 +1,5 @@
 export interface Booth {
+  id: string,
   number: number,
   isOpen: boolean,
   vendor: string,

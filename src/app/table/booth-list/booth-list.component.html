@@ -30,6 +30,40 @@
   <p> Size: {{ selectedBooth?.size }} </p>
   <p> Outlets: {{ selectedBooth?.outlets }} </p>
   <p> Tables: {{ selectedBooth?.tables }} </p>
+
+  <button mat-stroked-button color="warn" (click)="deleteBooth()">delete</button>
+</mat-card>
+
+<mat-card>
+  <mat-form-field>
+    <mat-label>Number</mat-label>
+    <input matInput placeholder="number" [(ngModel)]="number">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Is it already reserved?</mat-label>
+    <input matInput placeholder="yes or no" [(ngModel)]="isOpen">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Vendor</mat-label>
+    <input matInput placeholder="name" [(ngModel)]="vendor">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Business</mat-label>
+    <input matInput placeholder="business name" [(ngModel)]="business">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Size</mat-label>
+    <input matInput placeholder="ex: 5 x 5" [(ngModel)]="size">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Outlets</mat-label>
+    <input matInput placeholder="number of outlets" [(ngModel)]="outlets">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Tables</mat-label>
+    <input matInput placeholder="number of tables" [(ngModel)]="tables">
+  </mat-form-field>
+  <button mat-stroked-button (click)="makeNewBooth()">Submit</button>
 </mat-card>
 
 

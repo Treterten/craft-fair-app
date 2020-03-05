@@ -98,9 +98,11 @@ app.get("/api/customer-list", async (req, res, next) => {
 
 //Helper function that sorts customers by alphabetical order
 function compareNames(a, b) {
+  //fetch both the name of customer a and b
   const aName = a.name.toUpperCase();
   const bName = b.name.toUpperCase();
 
+  //if a is before b alphabetically then return 1, if it's after b return -1, if they're equal return 0
   let comparison = 0;
   if(aName > bName) {
     comparison = 1;
@@ -115,7 +117,9 @@ function compareNames(a, b) {
 app.post("/api/customer-list", async (req, res, next) => {
     const customer = new Customer({
       name: req.body.name,
-      address: req.body.address
+      address: req.body.address,
+      paid: req.body.paid,
+      boothNumber: req.body.boothNumber
     });
 
     //save the new customer to the database
@@ -151,12 +155,13 @@ app.delete("/api/customer-list/:id", async (req, res, next) => {
 /* this middleware will find a customer by their ID and update the content
   of them in the database */
 app.patch("/api/customer-list/:id", async (req, res, next) => {
-  console.log(req.body.customer);
   //construct a proper mongodb object
   const customer = {
     _id: req.params.id,
     name: req.body.customer.name,
-    address: req.body.customer.address
+    address: req.body.customer.address,
+    paid: req.body.customer.paid,
+    boothNumber: req.body.customer.boothNumber
   };
   //find and update the customer
   Customer.findByIdAndUpdate(req.params.id, customer)
@@ -164,6 +169,7 @@ app.patch("/api/customer-list/:id", async (req, res, next) => {
       //send a success message
       res.status(200).json({ message: 'Post updated' });
     })
+    //if there's an error, do the catch, otherwise js will ignore the rest
     .catch(error => {
       console.error(error);
       //send a failure message
@@ -174,12 +180,90 @@ app.patch("/api/customer-list/:id", async (req, res, next) => {
 /* This middleware is going to get all the booths from the database */
 app.get("/api/booths", async (req, res, next) => {
   Booth.find()
+    //if there are no errors finding the booth, then move on below
     .then(booths => {
       console.log(booths);
       res.status(200).json({
         message: 'Booths fetched successfully',
         booths: booths
       });
+    })
+    //if there are errors for some reason, print them and report back
+    .catch(error => {
+      console.error(error);
+      res.status(500).json({ message: 'Encountered a problem fetching the booths' });
+    });
+});
+
+app.post("/api/booths", async (req, res, next) => {
+  //construct a new booth object to be inserted
+  const booth = new Booth({
+    number: req.body.booth.number,
+    isOpen: req.body.booth.isOpen,
+    vendor: req.body.booth.vendor,
+    business: req.body.booth.business,
+    size: req.body.booth.size,
+    outlets: req.body.booth.outlets,
+    tables: req.body.booth.tables
+  });
+
+  booth.save()
+    .then(result => {
+      console.log(result);
+      res.status(201).json({
+        message: 'Inserted successfully',
+        boothId: result._id
+      });
+    })
+    .catch(error => {
+      console.error(error);
+      res.status(500).json({
+        messag: 'Failed to save the booth'
+      });
+    });
+});
+
+/* This middleware is going to delete a booth by its id number */
+app.delete("/api/booths/:id", async (req, res, next) => {
+  Booth.deleteOne({ _id: req.params.id }).then(result => {
+    console.log(result);
+    res.status(200).json({
+      message: 'Deleted the booth successfully'
+    });
+  })
+  .catch(error => {
+    console.error(error);
+    res.status(500).json({
+      message: 'Failed to delete booth'
+    });
+  });
+});
+
+/* This middleware constructs a new booth from the given parameters, then updates the
+booth with the same ID in the database */
+app.patch("/api/booths/:id", async (req, res, next) => {
+  //construct the new booth
+  const booth = {
+    _id: req.params.id,
+    number: req.body.booth.number,
+    isOpen: req.body.booth.isOpen,
+    vendor: req.body.booth.vendor,
+    business: req.body.booth.business,
+    size: req.body.booth.size,
+    outlets: req.body.booth.outlets,
+    tables: req.body.booth.tables
+  };
+
+  //Find and update the booth in the database
+  Booth.findByIdAndUpdate(req.params.id, booth)
+    .then(result => {
+      //send a success message
+      res.status(200).json({ message: 'Booth updated' });
+    })
+    .catch(error => {
+      console.error(error);
+      //send a failure message
+      res.status(500).json({ message: 'Failed to update the booth' });
     });
 });
 

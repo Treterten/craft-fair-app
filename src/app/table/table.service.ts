@@ -39,6 +39,7 @@ export class TableService {
       .pipe(map((boothData) => {
         return boothData.booths.map(booth => {
           return {
+            id: booth._id,
             number: booth.number,
             isOpen: booth.isOpen,
             vendor: booth.vendor,
@@ -88,6 +89,26 @@ export class TableService {
         const index = this.customers.findIndex(element => element.id === customer.id);
         this.customers[index] = customer;
         this.customersUpdated.next([...this.customers]);
+      });
+  }
+
+  createBooth(booth: Booth) {
+    this.http.post<{message: string, boothId: string}>('https://localhost:443/api/booths', { booth })
+      .subscribe(result => {
+        booth.id = result.boothId;
+        this.booths.push(booth);
+        this.boothsUpdated.next([...this.booths]);
+      });
+  }
+
+  deleteBooth(id: string) {
+    this.http.delete('https://localhost:443/api/booths/' + id)
+      .subscribe(result => {
+        console.log(result);
+        this.booths = this.booths.filter(booth => booth.id !== id);
+        this.boothsUpdated.next([...this.booths]);
+      }, err => {
+        console.error(err);
       });
   }
 

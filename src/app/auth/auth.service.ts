@@ -12,7 +12,7 @@ export class AuthService {
   private isLoggedIn = false;
   private loggedInUpdated = new Subject<boolean>(); //TODO make this what the other classes use for privacy
 
-  redirectUrl: string; // <- this is probably not needed in our app
+  redirectUrl: string; // <- this is probably not needed in our app, just kinda here cause what if I guess
 
   login(username: string, password: string) {
       this.http.post<{message: string}>('https://localhost:443/api/login', { username, password })
@@ -23,7 +23,7 @@ export class AuthService {
         }, (err) => {
           this.isLoggedIn = false;
           this.loggedInUpdated.next(false);
-          console.log(err.message);
+          console.error(err);
         });
   }
 

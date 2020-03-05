@@ -17,6 +17,14 @@ export class BoothListComponent implements OnInit {
   filterControl = new FormControl('');
   selectedBooth: Booth;
 
+  number: number;
+  isOpen: string;
+  vendor: string;
+  business: string;
+  size: string;
+  outlets: number;
+  tables: number;
+
 
   constructor(private tableService: TableService) { }
 
@@ -48,6 +56,26 @@ export class BoothListComponent implements OnInit {
   setBooth(booth: Booth) {
     this.selectedBooth = booth;
     console.log(booth);
+  }
+
+  makeNewBooth() {
+    const isReserved = this.isOpen.toUpperCase() === 'YES' ? false : true;
+    let booth: Booth = {
+      id: null,
+      number: this.number,
+      isOpen: isReserved,
+      vendor: this.vendor,
+      business: this.business,
+      size: this.size,
+      outlets: this.outlets,
+      tables: this.tables
+    };
+
+    this.tableService.createBooth(booth);
+  }
+
+  deleteBooth() {
+    this.tableService.deleteBooth(this.selectedBooth.id);
   }
 
   ngOnDestroy() {
