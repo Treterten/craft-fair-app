@@ -1,0 +1,66 @@
+
+
+
+
+
+
+
+<!-- no ripple! if you want that. sorry. !-->
+
+<div class = "background">
+<div class = "cardWidthDiv">
+<mat-card>
+
+      <button mat-stroked-button> Available </button>
+      <button mat-stroked-button> Reserved Booths </button>
+      <button mat-stroked-button> Reserved Tables </button>
+      <button mat-stroked-button> Reserved Electric </button>
+
+</mat-card>
+</div>
+
+
+
+<div class = "tableSortDiv">
+    <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+      <ng-container matColumnDef="number">
+        <mat-header-cell *matHeaderCellDef> # </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.number}} </mat-cell>
+      </ng-container>
+
+
+      <ng-container matColumnDef="appReceived">
+        <mat-header-cell *matHeaderCellDef> Application Received </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.appReceived}} </mat-cell>
+      </ng-container>
+
+
+      <ng-container matColumnDef="appSent">
+        <mat-header-cell *matHeaderCellDef> Application Sent </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.appSent}} </mat-cell>
+      </ng-container>
+
+
+      <ng-container matColumnDef="comments">
+        <mat-header-cell *matHeaderCellDef> Comments </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.comments}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="firstName">
+        <mat-header-cell *matHeaderCellDef> First Name </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.firstName}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="lastName">
+        <mat-header-cell *matHeaderCellDef> Last Name </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.lastName}} </mat-cell>
+      </ng-container>
+
+
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+</div>
+</div>

@@ -1,0 +1,50 @@
+mat-card{
+  display:flex;
+  flex-direction:row;
+  justify-content:center;
+  shadow: none;
+  border: none;
+  border: 1px solid #CDCDCD !important;
+  background-color: #CDCDCD;
+}
+
+.cardWidthDiv{
+  width: 100%;
+  display:flex;
+  justify-content: center;
+}
+
+button{
+  color:#e74444;
+  border: 2px solid #e74444 !important;
+  border-radius: 32px;
+  margin-left: 3px;
+  margin-right: 3px;
+
+}
+
+button:hover{
+  background-color: #e74444;
+  color: white;
+}
+
+mat-table{
+ border-top: 4px solid #e74444;
+ width: 90%;
+
+
+
+}
+
+.tableSortDiv{
+  display:flex;
+  flex-direction:row;
+  justify-content:center;
+  width:100;
+}
+
+.background{
+  width: 100%;
+  height: 100%;
+  background-color: #CDCDCD;
+}
