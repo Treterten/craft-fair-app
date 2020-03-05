@@ -1,0 +1,10 @@
+<mat-card>
+  <mat-form-field>
+    <input matInput type="text" title="login" name="login" [(ngModel)]="username">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput type="password" title="login" name="login" [(ngModel)]="password">
+    <mat-error>There was a problem logging in</mat-error>
+  </mat-form-field>
+  <button mat-stroked-button color="secondary" (click)="onLogin()">Login</button>
+</mat-card>
