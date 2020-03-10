@@ -5,17 +5,18 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { Rule } from '@angular-devkit/schematics';
-import { Constructor } from '../../update-tool';
-import { MigrationRule } from '../../update-tool/migration-rule';
+/// <amd-module name="@angular/cdk/schematics/ng-update/upgrade-rules/index" />
+import { Rule, SchematicContext } from '@angular-devkit/schematics';
+import { MigrationRuleType } from '../../update-tool';
 import { TargetVersion } from '../../update-tool/target-version';
 import { RuleUpgradeData } from '../upgrade-data';
 /** List of migration rules which run for the CDK update. */
-export declare const cdkMigrationRules: Constructor<MigrationRule<RuleUpgradeData>>[];
-declare type NullableMigrationRule = Constructor<MigrationRule<RuleUpgradeData | null>>;
+export declare const cdkMigrationRules: MigrationRuleType<RuleUpgradeData>[];
+declare type NullableMigrationRule = MigrationRuleType<RuleUpgradeData | null>;
+declare type PostMigrationFn = (context: SchematicContext, targetVersion: TargetVersion, hasFailure: boolean) => void;
 /**
  * Creates a Angular schematic rule that runs the upgrade for the
  * specified target version.
  */
-export declare function createUpgradeRule(targetVersion: TargetVersion, extraRules: NullableMigrationRule[], upgradeData: RuleUpgradeData, onMigrationCompleteFn?: (targetVersion: TargetVersion, hasFailures: boolean) => void): Rule;
+export declare function createUpgradeRule(targetVersion: TargetVersion, extraRules: NullableMigrationRule[], upgradeData: RuleUpgradeData, onMigrationCompleteFn?: PostMigrationFn): Rule;
 export {};
