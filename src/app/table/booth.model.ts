@@ -2,8 +2,7 @@ export interface Booth {
   id: string,
   number: number,
   isOpen: boolean,
-  vendor: string,
-  business: string,
+  vendor: any,
   size: string,
   outlets: number,
   tables: number

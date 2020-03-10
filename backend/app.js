@@ -99,8 +99,8 @@ app.get("/api/customer-list", async (req, res, next) => {
 //Helper function that sorts customers by alphabetical order
 function compareNames(a, b) {
   //fetch both the name of customer a and b
-  const aName = a.name.toUpperCase();
-  const bName = b.name.toUpperCase();
+  const aName = a.lastName.toUpperCase();
+  const bName = b.lastName.toUpperCase();
 
   //if a is before b alphabetically then return 1, if it's after b return -1, if they're equal return 0
   let comparison = 0;
@@ -116,7 +116,8 @@ function compareNames(a, b) {
 //this is gonna post new customers to the database
 app.post("/api/customer-list", async (req, res, next) => {
     const customer = new Customer({
-      name: req.body.name,
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
       address: req.body.address,
       paid: req.body.paid,
       boothNumber: req.body.boothNumber
@@ -158,7 +159,8 @@ app.patch("/api/customer-list/:id", async (req, res, next) => {
   //construct a proper mongodb object
   const customer = {
     _id: req.params.id,
-    name: req.body.customer.name,
+    firstName: req.body.customer.firstName,
+    lastName: req.body.customer.lastName,
     address: req.body.customer.address,
     paid: req.body.customer.paid,
     boothNumber: req.body.customer.boothNumber
@@ -201,7 +203,6 @@ app.post("/api/booths", async (req, res, next) => {
     number: req.body.booth.number,
     isOpen: req.body.booth.isOpen,
     vendor: req.body.booth.vendor,
-    business: req.body.booth.business,
     size: req.body.booth.size,
     outlets: req.body.booth.outlets,
     tables: req.body.booth.tables
@@ -248,7 +249,6 @@ app.patch("/api/booths/:id", async (req, res, next) => {
     number: req.body.booth.number,
     isOpen: req.body.booth.isOpen,
     vendor: req.body.booth.vendor,
-    business: req.body.booth.business,
     size: req.body.booth.size,
     outlets: req.body.booth.outlets,
     tables: req.body.booth.tables

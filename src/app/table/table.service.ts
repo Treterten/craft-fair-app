@@ -43,7 +43,6 @@ export class TableService {
             number: booth.number,
             isOpen: booth.isOpen,
             vendor: booth.vendor,
-            business: booth.business,
             size: booth.size,
             outlets: booth.outlets,
             tables: booth.tables

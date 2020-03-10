@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { TableService } from '../table.service';
 import { Subscription } from 'rxjs';
 import { Booth } from '../booth.model';
+import { Vendor } from '../vendor.model';
 import { FormControl, Validators } from '@angular/forms';
 
 @Component({
@@ -19,7 +20,14 @@ export class BoothListComponent implements OnInit {
 
   number: number;
   isOpen: string;
-  vendor: string;
+  vendor: Vendor = {
+    firstName: undefined,
+    lastName: undefined,
+    address: undefined,
+    business: undefined,
+    applicationSent: undefined,
+    applicationRecieved: undefined
+  };
   business: string;
   size: string;
   outlets: number;
@@ -62,10 +70,9 @@ export class BoothListComponent implements OnInit {
     const isReserved = this.isOpen.toUpperCase() === 'YES' ? false : true;
     let booth: Booth = {
       id: null,
-      number: this.number,
+      number: +this.number,
       isOpen: isReserved,
       vendor: this.vendor,
-      business: this.business,
       size: this.size,
       outlets: this.outlets,
       tables: this.tables

@@ -25,8 +25,8 @@
   </mat-form-field>
   <button mat-stroked-button color="secondary" (click)="sortBooths()">Sort</button>
   <p> Available: {{ selectedBooth?.isOpen }} </p>
-  <p> Vendor: {{ selectedBooth?.vendor }} </p>
-  <p> Business: {{ selectedBooth?.business }} </p>
+  <p> Vendor: {{ selectedBooth?.vendor?.firstName + ' ' + selectedBooth?.vendor?.lastName }} </p>
+  <p> Business: {{ selectedBooth?.vendor.business }} </p>
   <p> Size: {{ selectedBooth?.size }} </p>
   <p> Outlets: {{ selectedBooth?.outlets }} </p>
   <p> Tables: {{ selectedBooth?.tables }} </p>
@@ -44,12 +44,28 @@
     <input matInput placeholder="yes or no" [(ngModel)]="isOpen">
   </mat-form-field>
   <mat-form-field>
-    <mat-label>Vendor</mat-label>
-    <input matInput placeholder="name" [(ngModel)]="vendor">
+    <mat-label>firstName</mat-label>
+    <input matInput placeholder="first name" [(ngModel)]="vendor.firstName">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>lastName</mat-label>
+    <input matInput placeholder="last name" [(ngModel)]="vendor.lastName">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>address</mat-label>
+    <input matInput placeholder="address" [(ngModel)]="vendor.address">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>applicationSent</mat-label>
+    <input matInput placeholder="application sent" [(ngModel)]="vendor.applicationSent">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>applicationRecieved</mat-label>
+    <input matInput placeholder="application recieved" [(ngModel)]="vendor.applicationRecieved">
   </mat-form-field>
   <mat-form-field>
     <mat-label>Business</mat-label>
-    <input matInput placeholder="business name" [(ngModel)]="business">
+    <input matInput placeholder="business name" [(ngModel)]="vendor.business">
   </mat-form-field>
   <mat-form-field>
     <mat-label>Size</mat-label>
