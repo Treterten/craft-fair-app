@@ -64,10 +64,13 @@
       "default": "npm",
       "enum": [
         "npm",
-        "yarn",
-        "cnpm",
-        "pnpm"
+        "yarn"
       ]
+    },
+    "migrateExternal": {
+      "type": "boolean",
+      "default": false,
+      "hidden": true
     }
   },
   "required": [
