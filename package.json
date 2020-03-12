@@ -1,5 +1,5 @@
 {
-  "name": "craft-fair-app",
+  "name": "grid-test-app",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -19,6 +19,11 @@
     "@angular/platform-browser": "~8.2.14",
     "@angular/platform-browser-dynamic": "~8.2.14",
     "@angular/router": "~8.2.14",
+    "@libria/gridstack": "^8.0.1",
+    "gridstack": "^0.6.4",
+    "jquery": "^3.4.1",
+    "jquery-ui-dist": "^1.12.1",
+    "lodash": "^4.17.15",
     "rxjs": "~6.4.0",
     "tslib": "^1.10.0",
     "zone.js": "~0.9.1"

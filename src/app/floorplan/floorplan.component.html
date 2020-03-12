@@ -1,0 +1,15 @@
+<div class="gridstack-wrapper" 
+lb-gridstack 
+[options]="{
+    float: true, 
+    verticalMargin: true, 
+    disableOneColumnMode:true}"  
+    width="14" 
+    height="14">
+    <div *ngFor="let table of tables" class="table" lb-gridstack-item
+         x="0"
+         y="0"
+         width="1">
+         <p>{{table.tableNumber}}</p>
+    </div>
+</div>

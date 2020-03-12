@@ -3,16 +3,18 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { FloorPlanComponent } from './floor-plan/floor-plan.component';
+import { GridstackModule } from '@libria/gridstack';
+import { FloorplanComponent } from './floorplan/floorplan.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    FloorPlanComponent
+    FloorplanComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    GridstackModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

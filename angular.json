@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "craft-fair-app": {
+    "gridTestApp": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/craft-fair-app",
+            "outputPath": "dist/gridTestApp",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -24,9 +24,16 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.css",
+              "./node_modules/gridstack/dist/gridstack.css"
             ],
-            "scripts": []
+            "scripts": [
+              "./node_modules/lodash/lodash.min.js",
+              "./node_modules/jquery/dist/jquery.min.js",
+              "./node_modules/jquery-ui-dist/jquery-ui.js",
+              "./node_modules/gridstack/dist/gridstack.js",
+              "./node_modules/gridstack/dist/gridstack.jQueryUI.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -63,18 +70,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "craft-fair-app:build"
+            "browserTarget": "gridTestApp:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "craft-fair-app:build:production"
+              "browserTarget": "gridTestApp:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "craft-fair-app:build"
+            "browserTarget": "gridTestApp:build"
           }
         },
         "test": {
@@ -111,15 +118,15 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "craft-fair-app:serve"
+            "devServerTarget": "gridTestApp:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "craft-fair-app:serve:production"
+              "devServerTarget": "gridTestApp:serve:production"
             }
           }
         }
       }
     }},
-  "defaultProject": "craft-fair-app"
+  "defaultProject": "gridTestApp"
 }
