@@ -90,7 +90,7 @@ app.get("/api/customer-list", async (req, res, next) => {
       console.log(customers);
       const customersSorted = customers.sort(compareNames); //sorting the customers by name alphabetically
       res.status(200).json({
-        message: 'Customers fetched successfully',
+        message: 'Vendors fetched successfully',
         customers: customersSorted
         });
     });
@@ -160,12 +160,12 @@ app.patch("/api/customer-list/:id", async (req, res, next) => {
   //construct a proper mongodb object
   const customer = {
     _id: req.params.id,
-    firstName: req.body.customer.firstName,
-    lastName: req.body.customer.lastName,
-    address: req.body.customer.address,
-    applicationSent: req.body.applicationSent,
-    applicationRecieved: req.body.applicationRecieved,
-    boothNumber: req.body.customer.boothNumber
+    firstName: req.body.vendor.firstName,
+    lastName: req.body.vendor.lastName,
+    address: req.body.vendor.address,
+    applicationSent: req.body.vendor.applicationSent,
+    applicationRecieved: req.body.vendor.applicationRecieved,
+    boothNumber: req.body.vendor.boothNumber
   };
   //find and update the customer
   Customer.findByIdAndUpdate(req.params.id, customer)

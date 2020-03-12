@@ -39,20 +39,6 @@ export class CustomerTableComponent implements OnInit {
       });
   }
 
-  onSubmit() {
-    /* if(this.name == undefined || this.address == undefined) {
-      return;
-    }
-    let customer: Vendor = {
-      id: null,
-      firstName: this.firstName,
-      lastName: this.lastName,
-      address: this.address,
-
-    };
-    this.tableService.addCustomer(customer, ); */
-  }
-
   onDeleteCustomer(id: string) {
     this.tableService.deleteCustomer(id);
   }
