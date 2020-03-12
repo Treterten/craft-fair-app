@@ -21,12 +21,14 @@ export class BoothListComponent implements OnInit {
   number: number;
   isOpen: string;
   vendor: Vendor = {
+    id: undefined,
     firstName: undefined,
     lastName: undefined,
     address: undefined,
     business: undefined,
     applicationSent: undefined,
-    applicationRecieved: undefined
+    applicationRecieved: undefined,
+    boothNumber: undefined
   };
   business: string;
   size: string;

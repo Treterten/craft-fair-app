@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Customer } from './customer.model';
 import { Booth } from './booth.model';
+import { Vendor } from './vendor.model';
 import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -10,10 +11,13 @@ import { map } from 'rxjs/operators';
 })
 export class TableService {
   private customers: Customer[] = [];
-  private customersUpdated = new Subject<Customer[]>();
+
 
   private booths: Booth[] = [];
   private boothsUpdated = new Subject<Booth[]>();
+
+  private vendors: Vendor[] = [];
+  private customersUpdated = new Subject<Vendor[]>();
 
   constructor(private http: HttpClient) { }
 
@@ -22,15 +26,20 @@ export class TableService {
       .pipe(map((customerData) => {
         return customerData.customers.map(customer => {
           return {
-            name: customer.name,
+            firstName: customer.firstName,
+            lastName: customer.lastName,
             address: customer.address,
+            business: customer.business,
+            applicationSent: customer.applicationSent,
+            applicationRecieved: customer.applicationRecieved,
+            boothNumber: customer.boothNumber,
             id: customer._id
           };
         });
       }))
       .subscribe((transformedCustomers) => {
-        this.customers = transformedCustomers;
-        this.customersUpdated.next([...this.customers]);
+        this.vendors = transformedCustomers;
+        this.customersUpdated.next([...this.vendors]);
       });
   }
 
@@ -55,12 +64,12 @@ export class TableService {
       })
   }
 
-  addCustomer(customer: Customer) {
-    this.http.post<{message: string, id: string}>('https://localhost:443/api/customer-list', customer)
+  addCustomer(vendor: Vendor) {
+    this.http.post<{message: string, id: string}>('https://localhost:443/api/customer-list', vendor)
       .subscribe(responseData => {
-        customer.id = responseData.id;
-        this.customers.push(customer);
-        this.customersUpdated.next([...this.customers]);
+        vendor.id = responseData.id;
+        this.vendors.push(vendor);
+        this.customersUpdated.next([...this.vendors]);
       });
 
   }
@@ -68,26 +77,27 @@ export class TableService {
   deleteCustomer(id: string) {
     this.http.delete('https://localhost:443/api/customer-list/' + id)
       .subscribe(successMessage => {
-        this.customers = this.customers.filter(customer => customer.id !== id); //filter out the deleted message
-        this.customersUpdated.next([...this.customers]); //push the new collection of customers to the front end
+        this.vendors = this.vendors.filter(vendor => vendor.id !== id); //filter out the deleted message
+        this.customersUpdated.next([...this.vendors]); //push the new collection of customers to the front end
       });
   }
 
-  editCustomer(customer: Customer) {
-    customer.name = customer.name.trim();
-    customer.address = customer.address.trim();
-    if(customer.name === '' || customer.address === '') {
+  editCustomer(vendor: Vendor) {
+    vendor.firstName = vendor.firstName.trim();
+    vendor.lastName = vendor.lastName.trim();
+    vendor.address = vendor.address.trim();
+    if(vendor.firstName === '' || vendor.address === '' || vendor.lastName === '') {
       return;
     }
 
-    console.log(customer);
+    console.log(vendor);
     //send the update request to the database
-    this.http.patch('https://localhost:443/api/customer-list/' + customer.id, { customer })
+    this.http.patch('https://localhost:443/api/customer-list/' + vendor.id, { vendor })
       .subscribe(result => {
         console.log(result);
-        const index = this.customers.findIndex(element => element.id === customer.id);
-        this.customers[index] = customer;
-        this.customersUpdated.next([...this.customers]);
+        const index = this.vendors.findIndex(element => element.id === vendor.id);
+        this.vendors[index] = vendor;
+        this.customersUpdated.next([...this.vendors]);
       });
   }
 

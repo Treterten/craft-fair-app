@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Customer } from '../customer.model';
+import { Vendor } from '../vendor.model';
 import { TableService } from '../table.service';
 import { Subscription } from 'rxjs';
 
@@ -10,16 +10,22 @@ import { Subscription } from 'rxjs';
 })
 export class CustomerTableComponent implements OnInit {
   private customerSub: Subscription;
-  customers: Customer[]= [];
+  customers: Vendor[] = [];
   displayedColumns: string[] = ['name', 'address', 'delete', 'edit'];
 
-  name: string;
+  firstName: string;
+  lastName: string;
   address: string;
 
-  changedCustomer: Customer = {
-    name: '',
+  changedCustomer: Vendor = {
+    id: '',
+    firstName: '',
+    lastName: '',
+    business: '',
     address: '',
-    id: ''
+    applicationSent: false,
+    applicationRecieved: false,
+    boothNumber: 0
   };
 
   constructor(private tableService: TableService) { }
@@ -27,29 +33,32 @@ export class CustomerTableComponent implements OnInit {
   ngOnInit() {
     this.tableService.getCustomerList();
     this.customerSub = this.tableService.getCustomerUpdateListener()
-      .subscribe((customerList: Customer[]) => {
-        this.customers = customerList;
+      .subscribe((vendorList: Vendor[]) => {
+        this.customers = vendorList;
+        console.log(vendorList);
       });
   }
 
   onSubmit() {
-    if(this.name == undefined || this.address == undefined) {
+    /* if(this.name == undefined || this.address == undefined) {
       return;
     }
-    let customer: Customer = {
+    let customer: Vendor = {
       id: null,
-      name: this.name,
-      address: this.address
+      firstName: this.firstName,
+      lastName: this.lastName,
+      address: this.address,
+
     };
-    this.tableService.addCustomer(customer);
+    this.tableService.addCustomer(customer, ); */
   }
 
   onDeleteCustomer(id: string) {
     this.tableService.deleteCustomer(id);
   }
 
-  beginEditCustomer(customer: Customer) {
-    this.changedCustomer = Object.assign({}, customer);
+  beginEditCustomer(vendor: Vendor) {
+    this.changedCustomer = Object.assign({}, vendor);
   }
 
   onEditCustomer() {

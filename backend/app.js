@@ -119,7 +119,8 @@ app.post("/api/customer-list", async (req, res, next) => {
       firstName: req.body.firstName,
       lastName: req.body.lastName,
       address: req.body.address,
-      paid: req.body.paid,
+      applicationSent: false,
+      applicationRecieved: false,
       boothNumber: req.body.boothNumber
     });
 
@@ -162,14 +163,15 @@ app.patch("/api/customer-list/:id", async (req, res, next) => {
     firstName: req.body.customer.firstName,
     lastName: req.body.customer.lastName,
     address: req.body.customer.address,
-    paid: req.body.customer.paid,
+    applicationSent: req.body.applicationSent,
+    applicationRecieved: req.body.applicationRecieved,
     boothNumber: req.body.customer.boothNumber
   };
   //find and update the customer
   Customer.findByIdAndUpdate(req.params.id, customer)
     .then(result => {
       //send a success message
-      res.status(200).json({ message: 'Post updated' });
+      res.status(200).json({ message: 'Vendor updated' });
     })
     //if there's an error, do the catch, otherwise js will ignore the rest
     .catch(error => {

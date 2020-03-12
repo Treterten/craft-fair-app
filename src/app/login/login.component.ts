@@ -12,8 +12,8 @@ import { Subscription } from 'rxjs';
 })
 
 export class LoginComponent {
-  private password: string = '';
-  private username: string = '';
+  password: string = '';
+  username: string = '';
   private loginUpdateListener: Subscription;
   // private pw: string = 'Heck';
 
