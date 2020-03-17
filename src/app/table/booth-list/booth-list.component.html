@@ -25,7 +25,7 @@
   </mat-form-field>
   <button mat-stroked-button color="secondary" (click)="sortBooths()">Sort</button>
   <p> Available: {{ selectedBooth?.isOpen }} </p>
-  <p> Vendor: {{ selectedBooth?.vendor?.firstName + ' ' + selectedBooth?.vendor?.lastName }} </p>
+  <p> Vendor: {{ getVendorName() }} </p>
   <p> Business: {{ selectedBooth?.vendor.business }} </p>
   <p> Size: {{ selectedBooth?.size }} </p>
   <p> Outlets: {{ selectedBooth?.outlets }} </p>

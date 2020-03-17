@@ -22,7 +22,6 @@ export class CustomerTableComponent implements OnInit {
     firstName: '',
     lastName: '',
     business: '',
-    address: '',
     applicationSent: false,
     applicationRecieved: false,
     boothNumber: 0

@@ -12,11 +12,15 @@ import { FormControl, Validators } from '@angular/forms';
 })
 export class BoothListComponent implements OnInit {
   private boothsSub: Subscription;
+  private vendorSub: Subscription;
   booths: Booth[] = [];
   boothsCopy: Booth[] = [];
   boothControl = new FormControl('', Validators.required);
   filterControl = new FormControl('');
   selectedBooth: Booth;
+
+  vendors: Vendor[] = [];
+
 
   number: number;
   isOpen: string;
@@ -24,7 +28,6 @@ export class BoothListComponent implements OnInit {
     id: undefined,
     firstName: undefined,
     lastName: undefined,
-    address: undefined,
     business: undefined,
     applicationSent: undefined,
     applicationRecieved: undefined,
@@ -39,11 +42,19 @@ export class BoothListComponent implements OnInit {
   constructor(private tableService: TableService) { }
 
   ngOnInit() {
+    //get the booths
     this.tableService.getBoothList();
     this.boothsSub = this.tableService.getBoothUpdateListener()
       .subscribe((boothList: Booth[]) => {
         this.booths = boothList;
         this.boothsCopy = boothList;
+      });
+
+    //get the vendors, we do this here to lower the amount of database accesses overall
+    this.tableService.getCustomerList();
+    this.customerSub = this.tableService.getCustomerUpdateListener()
+      .subscribe((vendorList: Vendor[]) => {
+        this.vendors = vendorList;
       });
   }
 
@@ -63,13 +74,42 @@ export class BoothListComponent implements OnInit {
     return 'red';
   }
 
+  getVendorName() {
+    if(!this.selectedBooth) {
+      return null;
+    }
+
+    
+  }
+
   setBooth(booth: Booth) {
     this.selectedBooth = booth;
+
     console.log(booth);
+  }
+
+  reserveBooth() {
+    const firstName = this.name.trim().substring(0, this.name.findIndex(" "));
+    const lastName = this.name.trim().substring(this.name.findIndex(" "));
+    let vendor: Vendor = {
+      id: null,
+      firstname: firstName,
+      lastName: lastName,
+      business: this.business,
+      applicationSent: false,
+      applicationRecieved: false,
+      boothNumber: selectedBooth.number
+    };
+
+    this.selectedBooth.vendor = this.tableService.addCustomer(vendor);
+
+    this.tableService.editBooth(this.selectedBooth);
   }
 
   makeNewBooth() {
     const isReserved = this.isOpen.toUpperCase() === 'YES' ? false : true;
+
+    this.tableService.addCustomer(newVendor);
     let booth: Booth = {
       id: null,
       number: +this.number,

@@ -71,7 +71,7 @@ export class TableService {
         this.vendors.push(vendor);
         this.customersUpdated.next([...this.vendors]);
       });
-
+    return vendor.id;
   }
 
   deleteCustomer(id: string) {
@@ -119,6 +119,16 @@ export class TableService {
       }, err => {
         console.error(err);
       });
+  }
+
+  editBooth(booth: Booth) {
+    this.http.patch('https://localhost:443/api/booths/' + booth.id, { booth })
+      .subscribe(result => {
+        console.log(result);
+        const index = this.vendors.findIndex(element => element.id === booth.id);
+        this.booths[index] = booth;
+        this.boothsUpdated.next([...this.booths]);
+      })
   }
 
   getCustomerUpdateListener() {

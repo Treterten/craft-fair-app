@@ -118,7 +118,6 @@ app.post("/api/customer-list", async (req, res, next) => {
     const customer = new Customer({
       firstName: req.body.firstName,
       lastName: req.body.lastName,
-      address: req.body.address,
       applicationSent: false,
       applicationRecieved: false,
       boothNumber: req.body.boothNumber
@@ -162,7 +161,6 @@ app.patch("/api/customer-list/:id", async (req, res, next) => {
     _id: req.params.id,
     firstName: req.body.vendor.firstName,
     lastName: req.body.vendor.lastName,
-    address: req.body.vendor.address,
     applicationSent: req.body.vendor.applicationSent,
     applicationRecieved: req.body.vendor.applicationRecieved,
     boothNumber: req.body.vendor.boothNumber
