@@ -1,3 +1,8 @@
+/*
+primary red color: #cb3434;
+hover red color: #A01111;
+*/
+
 @import url('https://fonts.googleapis.com/css?family=Lato:400,700&display=swap');
 
 /* GENERAL STYLE SETS */
@@ -16,6 +21,7 @@ body {
   background-color: #F7F5F8;
   height: 100vh;
   font-family: 'Lato', sans-serif;
+  font-size: 18px;
 }
 
 h4 {
@@ -24,6 +30,28 @@ h4 {
 
 .jumbotron { /* overrides bootstrap's default background color to set gray */
   background-color: inherit;
+}
+
+/* ROOM SELECTION */
+.card-deck {
+  max-width: 1000px;
+  min-width: 450px;
+}
+
+.card {
+  border: 0;
+  box-shadow: 0 1.5px 1.5px 1.5px rgba(0, 0, 0, 0.05), 0 1.5px 1.5px 1.5px rgba(0, 0, 0, 0.05);
+}
+
+.card:hover {
+  background-color: #cb3434;
+  color: white;
+  cursor: pointer;
+}
+
+.card-text {
+  font-size: 18px;
+  font-weight: 400;
 }
 
 /* SIGN IN */
