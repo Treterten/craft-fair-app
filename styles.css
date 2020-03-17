@@ -1,0 +1,61 @@
+@import url('https://fonts.googleapis.com/css?family=Lato:400,700&display=swap');
+
+/* GENERAL STYLE SETS */
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #F7F5F8;
+  height: 100vh;
+  font-family: 'Lato', sans-serif;
+}
+
+h4 {
+  font-weight: 700;
+}
+
+.jumbotron { /* overrides bootstrap's default background color to set gray */
+  background-color: inherit;
+}
+
+/* SIGN IN */
+.form-signin {
+  width: 100%;
+  max-width: 500px;
+  padding: 50px;
+  margin: 0 auto;
+  border-top: solid 8px #cb3434;
+  box-shadow: 0 2px 3px 3px rgba(0, 0, 0, 0.02), 0 2px 3px 3px rgba(0, 0, 0, 0.02);
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+
+.form-signin input {
+  margin-bottom: 25px;
+  padding: 10px 20px;
+  border: 1px solid #DADADA;
+}
+
+/* BUTTONS */
+.btn-primary {
+  background-color: #cb3434;
+  border-radius: 10px;
+  border: 0;
+  padding: 10px 50px;
+  align-self: center;
+  cursor: pointer;
+  box-shadow: 0 1.5px 1.5px 1.5px rgba(0, 0, 0, 0.05), 0 1.5px 1.5px 1.5px rgba(0, 0, 0, 0.05);
+}
+
+.btn-primary:hover {
+  background-color: #A01111;
+  box-shadow: 0 1.5px 1.5px 1.5px rgba(0, 0, 0, 0.05), 0 1.5px 1.5px 1.5px rgba(0, 0, 0, 0.05);
+}
