@@ -1,5 +1,5 @@
 /*
-primary red color: #cb3434;
+primary red color: #db4d4d;
 hover red color: #A01111;
 */
 
@@ -48,7 +48,7 @@ h4 {
 }
 
 .card:hover {
-  background-color: #cb3434;
+  background-color: #db4d4d;
   color: white;
   cursor: pointer;
 }
@@ -64,7 +64,7 @@ h4 {
   max-width: 500px;
   padding: 50px;
   margin: 0 auto;
-  border-top: solid 8px #cb3434;
+  border-top: solid 8px #db4d4d;
   box-shadow: 0 2px 3px 3px rgba(0, 0, 0, 0.02), 0 2px 3px 3px rgba(0, 0, 0, 0.02);
   border-bottom-left-radius: 20px;
   border-bottom-right-radius: 20px;
@@ -78,7 +78,7 @@ h4 {
 
 /* BUTTONS */
 .btn-primary {
-  background-color: #cb3434;
+  background-color: #db4d4d;
   border-radius: 10px;
   border: 0;
   padding: 10px 50px;
@@ -88,6 +88,10 @@ h4 {
 }
 
 .btn-primary:hover {
-  background-color: #A01111;
+  background-color: #ba3a3a;
   box-shadow: 0 1.5px 1.5px 1.5px rgba(0, 0, 0, 0.05), 0 1.5px 1.5px 1.5px rgba(0, 0, 0, 0.05);
+}
+
+.btn-primary:not(:disabled):not(.disabled).active, .btn-primary:not(:disabled):not(.disabled):active, .show.btn-primary.dropdown-toggle {
+  background-color: #ba3a3a;
 }
