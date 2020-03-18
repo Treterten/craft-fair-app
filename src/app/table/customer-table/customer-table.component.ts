@@ -9,15 +9,15 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./customer-table.component.css']
 })
 export class CustomerTableComponent implements OnInit {
-  private customerSub: Subscription;
-  customers: Vendor[] = [];
+  private vendorSub: Subscription;
+  vendors: Vendor[] = [];
   displayedColumns: string[] = ['name', 'address', 'delete', 'edit'];
 
   firstName: string;
   lastName: string;
   address: string;
 
-  changedCustomer: Vendor = {
+  changedVendor: Vendor = {
     id: '',
     firstName: '',
     lastName: '',
@@ -30,30 +30,30 @@ export class CustomerTableComponent implements OnInit {
   constructor(private tableService: TableService) { }
 
   ngOnInit() {
-    this.tableService.getCustomerList();
-    this.customerSub = this.tableService.getCustomerUpdateListener()
+    this.tableService.getVendorList();
+    this.vendorSub = this.tableService.getVendorsUpdateListener()
       .subscribe((vendorList: Vendor[]) => {
-        this.customers = vendorList;
+        this.vendors = vendorList;
         console.log(vendorList);
       });
   }
 
-  onDeleteCustomer(id: string) {
-    this.tableService.deleteCustomer(id);
+  onDeleteVendor(id: string) {
+    this.tableService.deleteVendor(id);
   }
 
-  beginEditCustomer(vendor: Vendor) {
-    this.changedCustomer = Object.assign({}, vendor);
+  beginEditVendor(vendor: Vendor) {
+    this.changedVendor = Object.assign({}, vendor);
   }
 
-  onEditCustomer() {
+  onEditVendor() {
     console.log("I'm in onEditCustomer");
 
-    this.tableService.editCustomer(this.changedCustomer);
+    this.tableService.editVendor(this.changedVendor);
   }
 
   ngOnDestroy() {
-    this.customerSub.unsubscribe();
+    this.vendorSub.unsubscribe();
   }
 
 

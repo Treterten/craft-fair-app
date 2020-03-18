@@ -51,8 +51,8 @@ export class BoothListComponent implements OnInit {
       });
 
     //get the vendors, we do this here to lower the amount of database accesses overall
-    this.tableService.getCustomerList();
-    this.customerSub = this.tableService.getCustomerUpdateListener()
+    this.tableService.getVendorList();
+    this.vendorSub = this.tableService.getVendorsUpdateListener()
       .subscribe((vendorList: Vendor[]) => {
         this.vendors = vendorList;
       });
@@ -79,7 +79,7 @@ export class BoothListComponent implements OnInit {
       return null;
     }
 
-    
+
   }
 
   setBooth(booth: Booth) {
@@ -101,7 +101,7 @@ export class BoothListComponent implements OnInit {
       boothNumber: selectedBooth.number
     };
 
-    this.selectedBooth.vendor = this.tableService.addCustomer(vendor);
+    this.selectedBooth.vendor = this.tableService.addVendor(vendor);
 
     this.tableService.editBooth(this.selectedBooth);
   }
@@ -109,7 +109,7 @@ export class BoothListComponent implements OnInit {
   makeNewBooth() {
     const isReserved = this.isOpen.toUpperCase() === 'YES' ? false : true;
 
-    this.tableService.addCustomer(newVendor);
+    this.tableService.addVendor(newVendor);
     let booth: Booth = {
       id: null,
       number: +this.number,

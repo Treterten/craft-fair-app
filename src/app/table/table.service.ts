@@ -10,25 +10,23 @@ import { map } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class TableService {
-  private customers: Customer[] = [];
 
 
   private booths: Booth[] = [];
   private boothsUpdated = new Subject<Booth[]>();
 
   private vendors: Vendor[] = [];
-  private customersUpdated = new Subject<Vendor[]>();
+  private vendorsUpdated = new Subject<Vendor[]>();
 
   constructor(private http: HttpClient) { }
 
-  getCustomerList() {
-    this.http.get<{message: string, customers: any}>('https://localhost:443/api/customer-list')
-      .pipe(map((customerData) => {
-        return customerData.customers.map(customer => {
+  getVendorList() {
+    this.http.get<{message: string, vendors: any}>('https://localhost:443/api/customer-list')
+      .pipe(map((vendorData) => {
+        return vendorData.vendors.map(customer => {
           return {
             firstName: customer.firstName,
             lastName: customer.lastName,
-            address: customer.address,
             business: customer.business,
             applicationSent: customer.applicationSent,
             applicationRecieved: customer.applicationRecieved,
@@ -37,9 +35,9 @@ export class TableService {
           };
         });
       }))
-      .subscribe((transformedCustomers) => {
-        this.vendors = transformedCustomers;
-        this.customersUpdated.next([...this.vendors]);
+      .subscribe((transformedVendors) => {
+        this.vendors = transformedVendors;
+        this.vendorsUpdated.next([...this.vendors]);
       });
   }
 
@@ -64,29 +62,28 @@ export class TableService {
       })
   }
 
-  addCustomer(vendor: Vendor) {
+  addVendor(vendor: Vendor) {
     this.http.post<{message: string, id: string}>('https://localhost:443/api/customer-list', vendor)
       .subscribe(responseData => {
         vendor.id = responseData.id;
         this.vendors.push(vendor);
-        this.customersUpdated.next([...this.vendors]);
+        this.vendorsUpdated.next([...this.vendors]);
       });
     return vendor.id;
   }
 
-  deleteCustomer(id: string) {
+  deleteVendor(id: string) {
     this.http.delete('https://localhost:443/api/customer-list/' + id)
       .subscribe(successMessage => {
         this.vendors = this.vendors.filter(vendor => vendor.id !== id); //filter out the deleted message
-        this.customersUpdated.next([...this.vendors]); //push the new collection of customers to the front end
+        this.vendorsUpdated.next([...this.vendors]); //push the new collection of customers to the front end
       });
   }
 
-  editCustomer(vendor: Vendor) {
+  editVendor(vendor: Vendor) {
     vendor.firstName = vendor.firstName.trim();
     vendor.lastName = vendor.lastName.trim();
-    vendor.address = vendor.address.trim();
-    if(vendor.firstName === '' || vendor.address === '' || vendor.lastName === '') {
+    if(vendor.firstName === '' || vendor.lastName === '') {
       return;
     }
 
@@ -97,7 +94,7 @@ export class TableService {
         console.log(result);
         const index = this.vendors.findIndex(element => element.id === vendor.id);
         this.vendors[index] = vendor;
-        this.customersUpdated.next([...this.vendors]);
+        this.vendorsUpdated.next([...this.vendors]);
       });
   }
 
@@ -131,8 +128,8 @@ export class TableService {
       })
   }
 
-  getCustomerUpdateListener() {
-    return this.customersUpdated.asObservable();
+  getVendorsUpdateListener() {
+    return this.vendorsUpdated.asObservable();
   }
 
   getBoothUpdateListener() {
