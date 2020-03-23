@@ -5,5 +5,6 @@ export interface Vendor {
   business: string,
   applicationSent: boolean,
   applicationRecieved: boolean,
-  boothNumber: number
+  boothNumber: number,
+  address: string
 };
